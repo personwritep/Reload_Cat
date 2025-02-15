@@ -1,0 +1,48 @@
+// ==UserScript==
+// @name        Reload Cat ▢
+// @namespace        http://tampermonkey.net/
+// @version        0.1
+// @description        一定のタイミングで管理トップをリロードする
+// @author        Ameba Blog User
+// @match        https://blog.ameba.jp/ucs/top.do
+// @icon        https://www.google.com/s2/favicons?sz=64&domain=ameblo.jp
+// @grant        none
+// ==/UserScript==
+
+
+let retry=0;
+
+let interval=setInterval(wait_end, 30000); // 10sec 間隔
+// let interval=setInterval(wait_end, 300000); // 5min 間隔
+
+function wait_end(){
+    retry++;
+    main();
+    if(retry>10){ // リロードコードでない場合は 繰り返し上限回数になる
+        clearInterval(interval); }}
+
+function main(){
+    beep();
+    setTimeout(()=>{
+        location.reload();
+    }, 500);
+
+
+    function beep(){
+
+        let base64=
+            'UklGRvEGAABXQVZFZm10IBAAAAABAAEAESsAABErAAABAAgAZGF0Yc0GA'+
+            'ACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgH96eH2ImpqMemVodYCS'+
+            'mI+Gb1xlcIegn5OBZVtoc5CjnZF7X19tfJqlnI1zW2JtgqCjl4VpWmZxjaWhlH5'+
+            'gW2l3l6adj3VbX2yAoKWaiWxYY2+JpaOXgWNaaHSTp6CSel1canqcppyMcFl'+
+            'hbIKjpJmGaFhlcI2moZV+YFtpdpennpB1Wl9rfp+lm4ptWGNuh6Sil4JkWWdz'+
+            'kqefknpdXWp6nKacjXBZYW2Do6OYhWdZZnGOpqGUfl9baXeYpp2PdFpgbH'+
+            '+gpZqIa1hkb4mlopaAYlpodJSnn5F4XF5rfJ2mm4tuWWNuhaSjl4NlWWdykK'+
+            'egk3tdXGp5m6acjXFZYW2Co6SZhWdYZnGOp6GUfV5baniZp5yOcllgbYGipJ'+
+            'mGaFhlcIymoZR+YFtpdpennY91W19sf6ClmohrWWRviKWiloFjWmh0k6afk'+
+            'XlcXWt7nKabi3BZYm6Do6SYhGdYZnGOpqCUfV9baneYp52PdVpgbH==';
+
+        let sound=new Audio("data:audio/wav; base64," + base64);
+        sound.play(); }
+
+} // main()
